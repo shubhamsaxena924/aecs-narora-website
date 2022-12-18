@@ -8,3 +8,7 @@ export enum AuthActionType {
   FETCH_ME_COMPLETED = 'auth/fetch/me/completed',
   FETCH_ME_ERROR = 'auth/fetch/me/error',
 }
+
+export enum UIActionType {
+  SET_DARK_MODE = 'ui/mode/dark',
+}

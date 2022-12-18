@@ -2,6 +2,17 @@
 @tailwind components;
 @tailwind utilities;
 
+@font-face {
+  font-family: JosefinSans;
+  src: url('/assets/fonts/josefin-sans/JosefinSans-VariableFont_wght.ttf') format("truetype-variations");
+}
+
+@font-face {
+  font-family: JosefinSans;
+  src: url('/assets/fonts/josefin-sans/JosefinSans-Italic-VariableFont_wght.ttf') format("truetype-variations");
+  font-style: italic;
+}
+
 html,
 body {
   padding: 0;
@@ -22,4 +33,34 @@ a {
 
 * {
   box-sizing: border-box;
+}
+
+/* This will work on Firefox */
+* {
+	scrollbar-width: auto;
+	scrollbar-color: auto;
+}
+
+/* Targtes on Chrome, Edge, and Safari */
+*::-webkit-scrollbar {
+	width: 3px;
+}
+
+*::-webkit-scrollbar-track {
+	background-color: transparent;
+}
+
+*::-webkit-scrollbar-thumb {
+	background-color: #999999;
+	border-radius: 20px;
+	border: 0px solid rgba(0, 0, 0, 0);
+	background-clip: padding-box;
+}
+
+
+@keyframes scale {
+  50% {
+    -webkit-transform: scale(1);
+    transform: scale(1);
+  }
 }
