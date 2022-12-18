@@ -1,5 +1,3 @@
-import useEscapeKeyDetector from 'hooks/useEscapeKeyDetector';
-import useOutsideClickDetector from 'hooks/useOutsideClickDetector';
 import useWindowSize from 'hooks/useWindowSize';
 import { useTheme } from 'next-themes';
 import Image from 'next/image';
@@ -7,7 +5,9 @@ import Link from 'next/link';
 import { useRouter } from 'next/router';
 import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { AiOutlineMenu } from 'react-icons/ai';
+import { BsChevronDown } from 'react-icons/bs';
 import store from 'redux/store';
+import Dropdown from './Dropdown/Dropdown';
 import DarkModeToggle from './Toggle/DarkModeToggle';
 
 export interface Props {}
@@ -31,22 +31,28 @@ const NavBar: React.FunctionComponent<Props> = () => {
 
   const router = useRouter();
   const [selected, setSelected] = useState<string>(router.pathname);
-  const [dropdown, setDropdown] = useState(false);
 
-  const dropdownWrapOne = useEscapeKeyDetector<HTMLDivElement>(() =>
-    setDropdown(false)
-  );
-  const dropdownWrapTwo = useOutsideClickDetector<HTMLDivElement>(() =>
-    setDropdown(false)
-  );
   const navLinks = [
     {
       url: '/',
       text: 'Home',
     },
     {
-      url: '/about',
       text: 'About Us',
+      subMenus: [
+        {
+          url: '/about/aees',
+          text: 'About AEES',
+        },
+        {
+          url: '/about/principal',
+          text: 'Principal',
+        },
+        {
+          url: '/about/staff',
+          text: 'Staff',
+        },
+      ],
     },
     {
       url: '/admissions',
@@ -80,46 +86,88 @@ const NavBar: React.FunctionComponent<Props> = () => {
     (totalAvailableWidth || widthOfOneLink) / widthOfOneLink - 2;
   const showButton: boolean = numberOfLinksToShow < navLinks.length;
 
-  useEffect(() => {
-    if (!showButton) {
-      setDropdown(false);
-    }
-  }, [showButton]);
-
   const slicedLinks = useCallback(
-    (start: number, end: number) =>
-      navLinks.slice(start, end).map((link) => (
-        <Link key={link.url} href={link.url}>
-          {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
-          <a
-            role='link'
-            tabIndex={0}
-            onClick={() => {
-              setSelected(link.url);
-              setDropdown(false);
-            }}
-            onKeyDown={(e) => {
-              if (e.key === 'Enter' && setSelected) {
+    (start: number, end: number, multiLevelDropdown?: boolean) =>
+      navLinks.slice(start, end).map((link) =>
+        link.url ? (
+          <Link key={link.url} href={link.url}>
+            {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
+            <a
+              role='link'
+              tabIndex={0}
+              onClick={() => {
                 setSelected(link.url);
-                setDropdown(false);
-              }
-            }}
-            className={`w-[7rem] flex-shrink-0 cursor-pointer my-1 `}
-          >
-            <span
-              className={`duration-500 bg-transparent font-bold dark:font-normal px-1 text-ellipsis inline-block text-xs tracking-widest transition-all text-slate-900 dark:text-slate-100 hover:text-opacity-80 dark:hover:text-opacity-80 uppercase border-b whitespace-nowrap  first-letter:text-base hover:border-slate-900 dark:hover:border-slate-100 hover:border-opacity-80  ${
-                selected === link.url
-                  ? 'text-opacity-100 border-transparent'
-                  : 'text-opacity-100 border-transparent'
-              }`}
+              }}
+              onKeyDown={(e) => {
+                if (e.key === 'Enter' && setSelected) {
+                  setSelected(link.url);
+                }
+              }}
+              className={`w-[7rem] flex-shrink-0 cursor-pointer my-1 `}
             >
-              {selected === link.url && '*'}
-              {link.text}
-              {selected === link.url && '*'}
-            </span>
-          </a>
-        </Link>
-      )),
+              <span
+                className={`duration-500 bg-transparent font-bold dark:font-normal px-1 text-ellipsis inline-block text-xs tracking-widest transition-all text-slate-900 dark:text-slate-100 hover:text-opacity-80 dark:hover:text-opacity-80 uppercase border-b whitespace-nowrap  first-letter:text-base hover:border-slate-900 dark:hover:border-slate-100 hover:border-opacity-80  ${
+                  selected === link.url
+                    ? 'text-opacity-100 border-transparent'
+                    : 'text-opacity-100 border-transparent'
+                }`}
+              >
+                {selected === link.url && '*'}
+                {link.text}
+                {selected === link.url && '*'}
+              </span>
+            </a>
+          </Link>
+        ) : (
+          <Dropdown
+            DropdownButton={
+              <div className='flex items-center'>
+                <span
+                  className={`duration-500 bg-transparent font-bold dark:font-normal px-1 text-ellipsis inline-block text-xs tracking-widest transition-all text-slate-900 dark:text-slate-100 hover:text-opacity-80 dark:hover:text-opacity-80 uppercase border-b whitespace-nowrap  first-letter:text-base hover:border-slate-900 dark:hover:border-slate-100 hover:border-opacity-80 text-opacity-100 border-transparent `}
+                >
+                  {link.text}
+                </span>
+                <BsChevronDown
+                  className='block mb-1 ml-2 text-xs'
+                  aria-hidden='true'
+                />
+              </div>
+            }
+            multiLevel={multiLevelDropdown}
+          >
+            {link.subMenus?.map((submenu) => (
+              <Link key={submenu.url} href={submenu.url}>
+                {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
+                <a
+                  role='link'
+                  tabIndex={0}
+                  onClick={() => {
+                    setSelected(submenu.url);
+                  }}
+                  onKeyDown={(e) => {
+                    if (e.key === 'Enter' && setSelected) {
+                      setSelected(submenu.url);
+                    }
+                  }}
+                  className={`w-[7rem] flex-shrink-0 cursor-pointer my-1 `}
+                >
+                  <span
+                    className={`duration-500 bg-transparent font-bold dark:font-normal px-1 text-ellipsis inline-block text-xs tracking-widest transition-all text-slate-900 dark:text-slate-100 hover:text-opacity-80 dark:hover:text-opacity-80 uppercase border-b whitespace-nowrap  first-letter:text-base hover:border-slate-900 dark:hover:border-slate-100 hover:border-opacity-80  ${
+                      selected === submenu.url
+                        ? 'text-opacity-100 border-transparent'
+                        : 'text-opacity-100 border-transparent'
+                    }`}
+                  >
+                    {selected === submenu.url && '*'}
+                    {submenu.text}
+                    {selected === submenu.url && '*'}
+                  </span>
+                </a>
+              </Link>
+            ))}
+          </Dropdown>
+        )
+      ),
     [selected, totalAvailableWidth]
   );
 
@@ -171,34 +219,24 @@ const NavBar: React.FunctionComponent<Props> = () => {
       </header>
 
       {/* Navbar */}
-      <nav className='relative mx-5 my-2 bg-opacity-50 rounded-full shadow-lg dark:bg-opacity-50 md:mx-10 bg-slate-400 dark:bg-slate-700'>
+      <nav className='relative z-50 mx-5 my-2 rounded-full shadow-lg md:mx-10 bg-slate-400/40 dark:bg-slate-700/50'>
         <div
           ref={navbarRef}
-          className='relative flex items-center justify-around px-5 py-1 space-x-2 text-center rounded-full backdrop-blur'
+          className='flex items-center justify-around px-5 py-1 space-x-2 text-center rounded-full'
         >
           {slicedLinks(0, numberOfLinksToShow)}
           {/* Dropdown Button */}
           {showButton && (
-            <div className='w-[7rem] text-center'>
-              <AiOutlineMenu
-                className='mx-auto w-[7rem] text-center cursor-pointer'
-                onClick={() => setDropdown(true)}
-              />
-            </div>
+            <Dropdown
+              DropdownButton={
+                <div className='w-[7rem] text-center'>
+                  <AiOutlineMenu className='mx-auto -mb-1 text-center cursor-pointer' />
+                </div>
+              }
+            >
+              {slicedLinks(numberOfLinksToShow, navLinks.length, true)}
+            </Dropdown>
           )}
-        </div>
-        {/* Dropdown */}
-        <div ref={dropdownWrapOne}>
-          <div
-            ref={dropdownWrapTwo}
-            className={`absolute flex flex-col text-center p-2 space-y-2 bg-opacity-50 rounded-lg dark:bg-opacity-50 bg-slate-400 dark:bg-slate-700 backdrop-blur z-[100] transition-all duration-300 right-0 top-[125%] shadow-nft ${
-              dropdown
-                ? 'visible opacity-100 scale-100'
-                : 'invisible scale-75 opacity-0'
-            }`}
-          >
-            {slicedLinks(numberOfLinksToShow, navLinks.length)}
-          </div>
         </div>
       </nav>
     </>

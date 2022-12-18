@@ -21,7 +21,7 @@ const DarkModeToggle: React.FC<ToggleProps> = (props) => {
       className={classNames(
         disabled && 'pointer-events-none opacity-50',
         enabled ? 'bg-slate-300' : 'bg-slate-700',
-        'relative inline-flex flex-shrink-0 border-2 bg-opacity-75 backdrop-blur w-8 border-transparent rounded-full cursor-pointer transition-colors ease-in-out duration-200 focus:outline-none focus-visible:ring-2  focus-visible:ring-white focus-visible:ring-opacity-75'
+        'relative inline-flex items-center flex-shrink-0 border-2 bg-opacity-75 backdrop-blur w-9 border-transparent rounded-full cursor-pointer transition-colors ease-in-out duration-200 focus:outline-none focus-visible:ring-2  focus-visible:ring-white focus-visible:ring-opacity-75'
       )}
     >
       <span
@@ -31,12 +31,12 @@ const DarkModeToggle: React.FC<ToggleProps> = (props) => {
             ? 'translate-x-[0.7rem] bg-slate-900'
             : 'translate-x-0 bg-slate-100'
         }
-            pointer-events-none inline-block w-4 h-4 rounded-full shadow-lg transform ring-0 transition ease-in-out duration-200`}
+            pointer-events-none w-5 h-5 rounded-full shadow-lg transform ring-0 transition ease-in-out duration-200 flex items-center`}
       >
         {enabled ? (
-          <MdModeNight className='w-2 mx-auto text-slate-100' />
+          <MdModeNight className='w-3 mx-auto text-slate-100' />
         ) : (
-          <BsSun className='w-2 mx-auto text-slate-900' />
+          <BsSun className='w-3 mx-auto text-slate-900' />
         )}
       </span>
     </Switch>

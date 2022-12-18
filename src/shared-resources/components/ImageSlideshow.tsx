@@ -81,7 +81,7 @@ const ImageSlideshow: React.FunctionComponent<SlideshowProps> = (props) => {
             style={
               animate
                 ? {
-                    animation: 'scale 40s linear infinite',
+                    animation: 'scale 20s linear infinite',
                   }
                 : undefined
             }

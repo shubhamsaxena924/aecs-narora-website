@@ -23,7 +23,7 @@ const BrandPopOver: React.FC<BrandPopOverProps> = ({
     <div ref={dropdownWrapOne}>
       <div
         ref={dropdownWrapTwo}
-        className={`fixed top-0 flex flex-col text-center p-2 space-y-2 bg-opacity-50 rounded-lg dark:bg-opacity-50 bg-slate-400 dark:bg-slate-700 backdrop-blur z-[100] transition-all duration-300 shadow-nft ${
+        className={`fixed top-0 flex flex-col text-center p-2 space-y-2 rounded-lg bg-slate-400/40 dark:bg-slate-700/50 backdrop-blur z-[100] transition-all duration-300 shadow-nft ${
           dropdown
             ? 'visible opacity-100 scale-100'
             : 'invisible scale-75 opacity-0'

@@ -106,7 +106,7 @@ const GalleryByJsonFile: React.FC<GalleryByJsonFileProps> = (props) => {
           if (!value) setSelectedFile(undefined);
         }}
         closeOnOutsideClick
-        className='fixed inset-0 bg-opacity-50 backdrop-blur-2xl bg-slate-400 dark:bg-slate-700 dark:bg-opacity-50'
+        className='fixed inset-0 backdrop-blur-2xl bg-slate-400/40 dark:bg-slate-700/50'
         showCloseButton
         overlay={false}
       >
@@ -127,7 +127,7 @@ const GalleryByJsonFile: React.FC<GalleryByJsonFileProps> = (props) => {
         {/* Controls */}
         {selectedFile && (
           <>
-            <div className='absolute text-5xl -translate-y-1/2 left-6 top-1/2 '>
+            <div className='absolute text-5xl -translate-x-full left-1/2 bottom-36 sm:bottom-auto sm:translate-x-0 sm:-translate-y-1/2 sm:left-6 sm:top-1/2 '>
               <button
                 onClick={() => {
                   setSelectedFile((v) =>
@@ -147,7 +147,7 @@ const GalleryByJsonFile: React.FC<GalleryByJsonFileProps> = (props) => {
                 <MdNavigateBefore />
               </button>
             </div>
-            <div className='absolute text-5xl -translate-y-1/2 right-6 top-1/2'>
+            <div className='absolute text-5xl left-1/2 bottom-36 sm:left-auto sm:bottom-auto sm:-translate-y-1/2 sm:right-6 sm:top-1/2'>
               <button
                 onClick={() =>
                   setSelectedFile((v) =>
