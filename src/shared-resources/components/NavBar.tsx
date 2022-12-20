@@ -41,6 +41,10 @@ const NavBar: React.FunctionComponent<Props> = () => {
       text: 'About Us',
       subMenus: [
         {
+          url: '/about',
+          text: 'Our Mission',
+        },
+        {
           url: '/about/aees',
           text: 'About AEES',
         },
@@ -51,6 +55,18 @@ const NavBar: React.FunctionComponent<Props> = () => {
         {
           url: '/about/staff',
           text: 'Staff',
+        },
+        {
+          url: '/about/strength',
+          text: 'Strength',
+        },
+        {
+          url: '/about/sac',
+          text: 'SAC',
+        },
+        {
+          url: '/about/lmc',
+          text: 'LMC',
         },
       ],
     },
@@ -123,12 +139,12 @@ const NavBar: React.FunctionComponent<Props> = () => {
             DropdownButton={
               <div className='flex items-center'>
                 <span
-                  className={`duration-500 bg-transparent font-bold dark:font-normal px-1 text-ellipsis inline-block text-xs tracking-widest transition-all text-slate-900 dark:text-slate-100 hover:text-opacity-80 dark:hover:text-opacity-80 uppercase border-b whitespace-nowrap  first-letter:text-base hover:border-slate-900 dark:hover:border-slate-100 hover:border-opacity-80 text-opacity-100 border-transparent `}
+                  className={`duration-500 bg-transparent font-bold dark:font-normal px-1 text-ellipsis inline-block text-xs tracking-widest transition-all text-slate-900 dark:text-slate-100 hover:text-opacity-80 dark:hover:text-opacity-80 uppercase  whitespace-nowrap first-letter:text-base text-opacity-100 `}
                 >
                   {link.text}
                 </span>
                 <BsChevronDown
-                  className='block mb-1 ml-2 text-xs'
+                  className='block ml-1 mb-0.5 text-xs'
                   aria-hidden='true'
                 />
               </div>

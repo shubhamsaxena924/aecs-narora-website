@@ -9,6 +9,7 @@ interface SlideshowProps {
   aspectRatioClassname?: string; // Send h-full for no aspect-ratio
   animate?: boolean;
   imageProps?: any;
+  fallbackImage?: any;
 }
 
 const ImageSlideshow: React.FunctionComponent<SlideshowProps> = (props) => {
@@ -20,6 +21,7 @@ const ImageSlideshow: React.FunctionComponent<SlideshowProps> = (props) => {
     aspectRatioClassname,
     animate,
     imageProps,
+    fallbackImage,
   } = props;
   const [currentImage, setCurrentImage] = useState<number>(0);
   const [hovering, setHovering] = useState<boolean>(false);
@@ -69,7 +71,7 @@ const ImageSlideshow: React.FunctionComponent<SlideshowProps> = (props) => {
         >
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <Image
-            src={images[currentImage]}
+            src={images[currentImage] || fallbackImage}
             className={`object-cover transition-all duration-700 overflow-hidden w-full ${
               aspectRatioClassname || 'aspect-[2/1]'
             } rounded-lg shadow-lg scale-110 ${
@@ -78,6 +80,12 @@ const ImageSlideshow: React.FunctionComponent<SlideshowProps> = (props) => {
             }`}
             layout='fill'
             alt=''
+            onError={(e) => {
+              if (fallbackImage) {
+                e.currentTarget.src = fallbackImage;
+                e.currentTarget.onerror = null;
+              }
+            }}
             style={
               animate
                 ? {

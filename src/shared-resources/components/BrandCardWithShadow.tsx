@@ -15,7 +15,7 @@ const BrandCardWithShadow: React.FC<Props> = (props) => {
     >
       <div>
         <div className='flex items-center space-x-2'>
-          {title && <h6>{title}</h6>}
+          {title && <h6 className='text-2xl'>{title}</h6>}
           {tooltip && tooltip}
         </div>
         {description && <p className='mt-2'>{description}</p>}

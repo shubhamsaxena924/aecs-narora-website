@@ -20,7 +20,9 @@ const Dropdown: React.FC<Props> = (props) => {
   const { children, DropdownButton, className, multiLevel } = props;
   return (
     <div className='relative h-full'>
-      <button onClick={() => setDropdown((v) => !v)}>{DropdownButton}</button>
+      <button onClick={() => setDropdown((v) => (multiLevel ? !v : true))}>
+        {DropdownButton}
+      </button>
       {/* Dropdown */}
       {multiLevel ? (
         <div

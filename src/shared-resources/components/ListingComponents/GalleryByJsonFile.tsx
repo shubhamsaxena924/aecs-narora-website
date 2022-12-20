@@ -20,78 +20,74 @@ const GalleryByJsonFile: React.FC<GalleryByJsonFileProps> = (props) => {
   const galleryHTML = useMemo(
     () =>
       jsonObject &&
-      Object.keys(jsonObject).map((key) => {
-        const categoryTitle = key.split('-').join(' ');
-        return (
-          <div key={key}>
-            <span className='text-lg capitalize md:text-2xl'>
-              {categoryTitle}
-            </span>
-            <section className=''>
-              <div className='container px-0 py-5 mx-auto md:px-6 md:py-6 xl:px-10 xl:py-10'>
-                <div className='flex flex-wrap -m-1 md:-m-2'>
-                  {/* Divide in group of 3 */}
-                  {Array(Math.ceil(jsonObject[key].length / 3))
-                    .fill(null)
-                    .map((v, index) => (
-                      <div
-                        key={`${categoryTitle}_${Math.random()}`}
-                        className='flex flex-wrap w-full sm:w-1/2 lg:w-1/3 '
-                      >
-                        {jsonObject[key]
-                          .slice(3 * index, 3 * index + 3)
-                          .map((image, image_index) => (
-                            <div
-                              role='button'
-                              tabIndex={0}
-                              key={image}
-                              className={`${(() => {
-                                if (index % 2 === 0) {
-                                  if (image_index % 3 === 2) return 'w-full';
-                                  return 'w-1/2';
-                                }
-                                if (image_index % 3 === 0) return 'w-full';
+      Object.keys(jsonObject).map((categoryKey) => (
+        <div key={categoryKey}>
+          <span className='text-lg capitalize md:text-2xl'>{categoryKey}</span>
+          <section className=''>
+            <div className='container px-0 py-5 mx-auto md:px-6 md:py-6 xl:px-10 xl:py-10'>
+              <div className='flex flex-wrap -m-1 md:-m-2'>
+                {/* Divide in group of 3 */}
+                {Array(Math.ceil(jsonObject[categoryKey].length / 3))
+                  .fill(null)
+                  .map((v, index) => (
+                    <div
+                      key={`${categoryKey}_${Math.random()}`}
+                      className='flex flex-wrap w-full sm:w-1/2 lg:w-1/3 '
+                    >
+                      {jsonObject[categoryKey]
+                        .slice(3 * index, 3 * index + 3)
+                        .map((image, image_index) => (
+                          <div
+                            role='button'
+                            tabIndex={0}
+                            key={image}
+                            className={`${(() => {
+                              if (index % 2 === 0) {
+                                if (image_index % 3 === 2) return 'w-full';
                                 return 'w-1/2';
-                              })()} p-2`}
-                              onClick={() => {
+                              }
+                              if (image_index % 3 === 0) return 'w-full';
+                              return 'w-1/2';
+                            })()} p-2`}
+                            onClick={() => {
+                              setSelectedFile({
+                                category: categoryKey,
+                                categoryTitle: categoryKey,
+                                imageIndex: 3 * index + image_index,
+                                totalImagesInCategory:
+                                  jsonObject[categoryKey].length,
+                              });
+                            }}
+                            onKeyDown={(e) => {
+                              if (e.key === 'Enter') {
                                 setSelectedFile({
-                                  category: key,
-                                  categoryTitle,
+                                  category: categoryKey,
+                                  categoryTitle: categoryKey,
                                   imageIndex: 3 * index + image_index,
-                                  totalImagesInCategory: jsonObject[key].length,
+                                  totalImagesInCategory:
+                                    jsonObject[categoryKey].length,
                                 });
+                              }
+                            }}
+                          >
+                            <ImageSlideshow
+                              images={[image]}
+                              ambientMode
+                              ambienceClassName='blur-xl opacity-75 dark:blur-lg dark:opacity-50'
+                              aspectRatioClassname='h-full'
+                              imageProps={{
+                                quality: '45',
                               }}
-                              onKeyDown={(e) => {
-                                if (e.key === 'Enter') {
-                                  setSelectedFile({
-                                    category: key,
-                                    categoryTitle,
-                                    imageIndex: 3 * index + image_index,
-                                    totalImagesInCategory:
-                                      jsonObject[key].length,
-                                  });
-                                }
-                              }}
-                            >
-                              <ImageSlideshow
-                                images={[image]}
-                                ambientMode
-                                ambienceClassName='blur-xl opacity-75 dark:blur-lg dark:opacity-50'
-                                aspectRatioClassname='h-full'
-                                imageProps={{
-                                  quality: '45',
-                                }}
-                              />
-                            </div>
-                          ))}
-                      </div>
-                    ))}
-                </div>
+                            />
+                          </div>
+                        ))}
+                    </div>
+                  ))}
               </div>
-            </section>
-          </div>
-        );
-      }),
+            </div>
+          </section>
+        </div>
+      )),
     [jsonObject]
   );
 

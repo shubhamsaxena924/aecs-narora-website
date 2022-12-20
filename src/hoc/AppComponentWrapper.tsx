@@ -9,7 +9,7 @@ interface AppComponentWrapperProps {
 const AppComponentWrapper: React.FC<AppComponentWrapperProps> = ({
   children,
 }) => (
-  <div className='w-full px-2 py-1 sm:px-8 lg:px-8'>
+  <div className='w-full px-2 py-1 sm:px-8 lg:px-8 max-w-[1920px] mx-auto relative'>
     <NavBar />
     {children}
   </div>
