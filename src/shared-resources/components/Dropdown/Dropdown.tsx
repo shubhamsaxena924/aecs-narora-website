@@ -36,7 +36,7 @@ const Dropdown: React.FC<Props> = (props) => {
         <div ref={dropdownWrapOne}>
           <div
             ref={dropdownWrapTwo}
-            className={`absolute flex flex-col text-center p-2 space-y-2 rounded-lg bg-slate-400/40 dark:bg-slate-700/50 backdrop-blur z-50 transition-all duration-300 left-1/2 -translate-x-1/2 top-[175%] shadow-nft ${
+            className={`absolute flex flex-col text-center p-2 space-y-2 rounded-lg bg-slate-400/40 dark:bg-slate-700/70 backdrop-blur z-50 transition-all duration-300 left-1/2 -translate-x-1/2 top-[175%] shadow-nft ${
               dropdown
                 ? 'visible opacity-100 scale-100'
                 : 'invisible scale-75 opacity-0'

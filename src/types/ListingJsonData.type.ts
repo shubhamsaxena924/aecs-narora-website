@@ -8,6 +8,17 @@ export type JsonListDataType = {
   [category: string]: JsonListItemType[];
 };
 
+// Used in Tenders, Downloads, Gallery Drive Links
+export type JsonDatedListItemType = {
+  title: string;
+  target: string;
+  date: string;
+};
+
+export type JsonDatedListDataType = {
+  [category: string]: JsonDatedListItemType[];
+};
+
 // Used in Gallery View
 export type JsonGalleryDataType = {
   [category: string]: string[];
@@ -43,4 +54,17 @@ export type JsonTeacherDataType = {
 
 export type JsonStaffDataType = {
   [category: string]: JsonTeacherDataType[];
+};
+
+// Used in Notices
+export type JsonAnnouncementDataType = {
+  id: string; // This should be unique
+  title: string;
+  description: string;
+  date: string;
+  attachments: JsonListItemType[];
+};
+
+export type JsonNoticesDataType = {
+  [category: string]: JsonAnnouncementDataType[];
 };

@@ -32,6 +32,12 @@ const NavBar: React.FunctionComponent<Props> = () => {
   const router = useRouter();
   const [selected, setSelected] = useState<string>(router.pathname);
 
+  useEffect(() => {
+    if (selected !== router.pathname) {
+      setSelected(router.pathname);
+    }
+  }, [router.pathname, selected]);
+
   const navLinks = [
     {
       url: '/',
@@ -202,7 +208,7 @@ const NavBar: React.FunctionComponent<Props> = () => {
       <header className='flex items-center justify-between w-full '>
         <div className='flex items-center'>
           {/* Logo */}
-          <span className='flex-shrink-0 p-4 md:p-10'>
+          <span className='flex-shrink-0 px-4 py-8 md:px-10'>
             <div className='absolute bg-[url("/assets/img/aecs-logo.png")] flex items-center justify-center bg-cover blur-2xl opacity-75 h-[3rem] w-[3rem] md:h-[6.25rem] md:w-[6.25rem] ' />
             <Image
               src='/assets/img/aecs-logo.png'
@@ -224,7 +230,7 @@ const NavBar: React.FunctionComponent<Props> = () => {
           </div>
         </div>
         {/* Toggle Dark mode */}
-        <div className='absolute top-8 right-10 sm:right-14 md:right-20'>
+        <div className='absolute top-10 md:top-8 right-10 sm:right-14 md:right-20'>
           <DarkModeToggle
             setEnabled={() => {
               setTheme(theme === 'dark' ? 'light' : 'dark');
@@ -235,7 +241,7 @@ const NavBar: React.FunctionComponent<Props> = () => {
       </header>
 
       {/* Navbar */}
-      <nav className='relative z-50 mx-5 my-2 rounded-full shadow-lg md:mx-10 bg-slate-400/40 dark:bg-slate-700/50'>
+      <nav className='relative z-50 mx-5 my-2 rounded-full shadow-lg md:mx-10 bg-slate-700/40 dark:bg-slate-700/50'>
         <div
           ref={navbarRef}
           className='flex items-center justify-around px-5 py-1 space-x-2 text-center rounded-full'

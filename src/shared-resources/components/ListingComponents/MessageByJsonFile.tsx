@@ -22,7 +22,7 @@ const MessageByJsonFile: React.FC<MessageByJsonFileProps> = (props) => {
               {/* Quote */}
               <FaQuoteLeft className='text-xl md:text-3xl' />
               {/* Message in paragraphs */}
-              <div className='leading-relaxed tracking-wider text-justify lg:pl-6 md:mr-10 xl:mr-16'>
+              <div className='italic font-light leading-relaxed tracking-wider text-justify lg:pl-6 md:mr-10 xl:mr-16'>
                 {jsonObject.message.map((para) => (
                   <p className='my-6' key={Math.random()}>
                     {para}

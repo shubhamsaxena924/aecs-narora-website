@@ -21,7 +21,7 @@ const StaffGalleryByJsonFile: React.FC<StaffGalleryByJsonFileProps> = (
           <div className='flex flex-wrap justify-center gap-5 mt-5 sm:justify-start'>
             {jsonObject[categoryKey].map((member) => (
               <BrandCardWithShadow
-                className='w-[16rem] lg:w-[18rem] xl:w-[20rem] rounded-lg text-slate-900 dark:text-slate-100 shadow-nft bg-slate-400/40 dark:bg-slate-700/50 backdrop-blur !py-3 !px-4'
+                className='w-[12rem] lg:w-[14rem] xl:w-[16rem] rounded-lg text-slate-900 dark:text-slate-100 shadow-nft bg-slate-400/40 dark:bg-slate-700/50 backdrop-blur !py-3 !px-4'
                 key={`${categoryKey}_${member.name}`}
               >
                 <div className='flex flex-col justify-between w-full h-full'>
@@ -36,7 +36,7 @@ const StaffGalleryByJsonFile: React.FC<StaffGalleryByJsonFileProps> = (
                     }
                   />
                   <div>
-                    <div className='mt-2 text-base italic font-bold text-center md:mt-6 md:text-xl'>
+                    <div className='mt-2 text-sm italic font-bold text-center md:mt-6 md:text-base'>
                       {member.name}
                     </div>
                     <div className='text-sm text-center md:text-base'>
